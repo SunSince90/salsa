@@ -21,11 +21,6 @@ const (
 	PremiumAccount
 )
 
-type result struct {
-	Header *resultHeader          `json:"header"`
-	Data   map[string]interface{} `json:"data"`
-}
-
 type sauceResponse struct {
 	Header  *responseHeader `json:"header"`
 	Results []result        `json:"results"`
@@ -108,13 +103,17 @@ func newResponse(r sauceResponse) *Response {
 		MinimumSimilarity: r.Header.MinimumSimilarity,
 		QueryImage:        r.Header.QueryImage,
 		QueryImageDisplay: r.Header.QueryImageDisplay,
-		Results:           &ResultsIterator{},
+		Results: &ResultsIterator{
+			currIndex: 0,
+			results:   r.Results,
+		},
 	}
 }
 
 // ResultsIterator is an iterator with all the results returned by Saucenao.
 type ResultsIterator struct {
-	// TODO: implement me
+	currIndex int
+	results   []result
 }
 
 // Next returns the next result from the list of results returned by Saucenao.
@@ -124,8 +123,47 @@ type ResultsIterator struct {
 // parameter.
 // TODO: make examples.
 func (r *ResultsIterator) Next() (interface{}, indexes.Index, error) {
-	// TODO: implement me
-	return nil, indexes.Unknown, nil
+	if r.currIndex == len(r.results) {
+		return nil, indexes.Unknown, &sauceError{"finished", ErrIteratorFinished}
+	}
+
+	res := r.results[r.currIndex]
+	r.currIndex++
+
+	switch res.Header.IndexID {
+	case indexes.DeviantArt:
+		return res.deviantArt(), res.Header.IndexID, nil
+	case indexes.EHentai:
+		return res.eHentai(), res.Header.IndexID, nil
+	case indexes.ArtStation:
+		return res.artStation(), res.Header.IndexID, nil
+	case indexes.Pixiv:
+		return res.pixiv(), res.Header.IndexID, nil
+	case indexes.AniDB:
+		return res.aniDB(), res.Header.IndexID, nil
+	case indexes.Pawoo:
+		return res.pawoo(), res.Header.IndexID, nil
+	case indexes.Gelbooru:
+		return res.gelbooru(), res.Header.IndexID, nil
+	case indexes.Danbooru:
+		return res.danbooru(), res.Header.IndexID, nil
+	case indexes.E621:
+		return res.e621(), res.Header.IndexID, nil
+	case indexes.PortalGraphics:
+		return res.portalGraphics(), res.Header.IndexID, nil
+	case indexes.Sankaku:
+		return res.sankaku(), res.Header.IndexID, nil
+	case indexes.FurAffinity:
+		return res.furAffinity(), res.Header.IndexID, nil
+	case indexes.SeigaIllustration:
+		return res.seigaIllustration(), res.Header.IndexID, nil
+	case indexes.HMags:
+		return res.hMags(), res.Header.IndexID, nil
+	case indexes.IMDb:
+		return res.iMDb(), res.Header.IndexID, nil
+	default:
+		return nil, indexes.Unknown, nil
+	}
 }
 
 type responseHeader struct {

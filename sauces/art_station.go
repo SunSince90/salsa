@@ -7,6 +7,8 @@ type ArtStation struct {
 
 	// ExternalURLs is a list of urls where the source for this picture is
 	// hosted.
+	ExternalURLs []string
+	// Title of the picture/page.
 	Title string
 	// Project...
 	// TODO
