@@ -86,3 +86,29 @@ func createFormFile(file *os.File) (textproto.MIMEHeader, error) {
 
 	return h, nil
 }
+
+func atoi(alpha *string) int {
+	if alpha == nil {
+		return -1
+	}
+
+	val, err := strconv.Atoi(*alpha)
+	if err != nil {
+		return -1
+	}
+
+	return val
+}
+
+func atof64(alpha *string) float64 {
+	if alpha == nil {
+		return -1
+	}
+
+	val, err := strconv.ParseFloat(*alpha, 64)
+	if err != nil {
+		return -1
+	}
+
+	return val
+}
