@@ -12,6 +12,12 @@ var (
 	// ErrUknownIndex is returned when the provided or returned index is not
 	// known or supported.
 	ErrUknownIndex = errors.New("unknown or unsupported index")
+	// ErrServerSide is returned when the request for source was successfully
+	// sent but could not complete because of a server side error.
+	ErrServerSide = errors.New("server side error")
+	// ErrClientSide is returned when the request for source was successfully
+	// sent but could not complete because of an error on user's request.
+	ErrClientSide = errors.New("client side error")
 )
 
 type sauceError struct {

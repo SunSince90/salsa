@@ -182,10 +182,3 @@ type responseHeader struct {
 	QueryImage        string  `json:"query_image"`
 	Message           string  `json:"message"`
 }
-
-type responseIndexData struct {
-	Status   int           `json:"status"`
-	ParentID indexes.Index `json:"parent_id"`
-	ID       int           `json:"id"`
-	Results  int           `json:"results"`
-}
