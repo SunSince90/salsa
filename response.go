@@ -122,9 +122,9 @@ type ResultsIterator struct {
 // Cast the source to the appropriate structure by checking the second returned
 // parameter.
 // TODO: make examples.
-func (r *ResultsIterator) Next() (interface{}, indexes.Index, error) {
+func (r *ResultsIterator) Next() (sauces.Sauce, error) {
 	if r.currIndex == len(r.results) {
-		return nil, indexes.Unknown, &sauceError{"finished", ErrIteratorFinished}
+		return nil, &sauceError{"finished", ErrIteratorFinished}
 	}
 
 	res := r.results[r.currIndex]
@@ -132,37 +132,37 @@ func (r *ResultsIterator) Next() (interface{}, indexes.Index, error) {
 
 	switch res.Header.IndexID {
 	case indexes.DeviantArt:
-		return res.deviantArt(), res.Header.IndexID, nil
+		return res.deviantArt(), nil
 	case indexes.EHentai:
-		return res.eHentai(), res.Header.IndexID, nil
+		return res.eHentai(), nil
 	case indexes.ArtStation:
-		return res.artStation(), res.Header.IndexID, nil
+		return res.artStation(), nil
 	case indexes.Pixiv:
-		return res.pixiv(), res.Header.IndexID, nil
+		return res.pixiv(), nil
 	case indexes.AniDB:
-		return res.aniDB(), res.Header.IndexID, nil
+		return res.aniDB(), nil
 	case indexes.Pawoo:
-		return res.pawoo(), res.Header.IndexID, nil
+		return res.pawoo(), nil
 	case indexes.Gelbooru:
-		return res.gelbooru(), res.Header.IndexID, nil
+		return res.gelbooru(), nil
 	case indexes.Danbooru:
-		return res.danbooru(), res.Header.IndexID, nil
+		return res.danbooru(), nil
 	case indexes.E621:
-		return res.e621(), res.Header.IndexID, nil
+		return res.e621(), nil
 	case indexes.PortalGraphics:
-		return res.portalGraphics(), res.Header.IndexID, nil
+		return res.portalGraphics(), nil
 	case indexes.Sankaku:
-		return res.sankaku(), res.Header.IndexID, nil
+		return res.sankaku(), nil
 	case indexes.FurAffinity:
-		return res.furAffinity(), res.Header.IndexID, nil
+		return res.furAffinity(), nil
 	case indexes.SeigaIllustration:
-		return res.seigaIllustration(), res.Header.IndexID, nil
+		return res.seigaIllustration(), nil
 	case indexes.HMags:
-		return res.hMags(), res.Header.IndexID, nil
+		return res.hMags(), nil
 	case indexes.IMDb:
-		return res.iMDb(), res.Header.IndexID, nil
+		return res.iMDb(), nil
 	default:
-		return nil, indexes.Unknown, nil
+		return nil, ErrUknownIndex
 	}
 }
 
