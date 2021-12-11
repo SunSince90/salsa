@@ -1,5 +1,7 @@
 package sauces
 
+import "github.com/SunSince90/salsa/indexes"
+
 // SeiganIllustration...
 // TODO
 type SeigaIllustration struct {
@@ -17,4 +19,31 @@ type SeigaIllustration struct {
 	MemberName string
 	// MemberID is the ID of the user that posted this.
 	MemberID int
+}
+
+// GetSimilarity returns the similarity percentage between the result
+// and the provided image.
+func (s *SeigaIllustration) GetSimilarity() float64 {
+	return s.Similarity
+}
+
+// GetThumbnail returns a URL with the thumbnail of this image.
+func (s *SeigaIllustration) GetThumbnail() string {
+	return s.Thumbnail
+}
+
+// IsHidden returns true if this result is hidden from the results.
+func (s *SeigaIllustration) IsHidden() bool {
+	return s.Hidden
+}
+
+// GetIndex returns the index for this.
+func (s *SeigaIllustration) GetIndex() indexes.Index {
+	return s.IndexID
+}
+
+// GetIndexName returns the index name or page title where this image is
+// hosted.
+func (s *SeigaIllustration) GetIndexName() string {
+	return s.IndexName
 }
