@@ -104,7 +104,7 @@ func newResponse(r sauceResponse) *Response {
 		QueryImage:        r.Header.QueryImage,
 		QueryImageDisplay: r.Header.QueryImageDisplay,
 		Results: &ResultsIterator{
-			currIndex: 0,
+			currIndex: -1,
 			results:   r.Results,
 		},
 	}
@@ -123,47 +123,53 @@ type ResultsIterator struct {
 // parameter.
 // TODO: make examples.
 func (r *ResultsIterator) Next() (sauces.Sauce, error) {
+	r.currIndex++
 	if r.currIndex == len(r.results) {
 		return nil, &sauceError{"finished", ErrIteratorFinished}
 	}
 
 	res := r.results[r.currIndex]
-	r.currIndex++
 
-	switch res.Header.IndexID {
-	case indexes.DeviantArt:
-		return res.deviantArt(), nil
-	case indexes.EHentai:
-		return res.eHentai(), nil
-	case indexes.ArtStation:
-		return res.artStation(), nil
-	case indexes.Pixiv:
-		return res.pixiv(), nil
-	case indexes.AniDB:
-		return res.aniDB(), nil
-	case indexes.Pawoo:
-		return res.pawoo(), nil
-	case indexes.Gelbooru:
-		return res.gelbooru(), nil
-	case indexes.Danbooru:
-		return res.danbooru(), nil
-	case indexes.E621:
-		return res.e621(), nil
-	case indexes.PortalGraphics:
-		return res.portalGraphics(), nil
-	case indexes.Sankaku:
-		return res.sankaku(), nil
-	case indexes.FurAffinity:
-		return res.furAffinity(), nil
-	case indexes.SeigaIllustration:
-		return res.seigaIllustration(), nil
-	case indexes.HMags:
-		return res.hMags(), nil
-	case indexes.IMDb:
-		return res.iMDb(), nil
-	default:
-		return nil, ErrUknownIndex
+	for i := r.currIndex; i < len(r.results); i++ {
+		switch res.Header.IndexID {
+		case indexes.DeviantArt:
+			return res.deviantArt(), nil
+		case indexes.EHentai:
+			return res.eHentai(), nil
+		case indexes.ArtStation:
+			return res.artStation(), nil
+		case indexes.Pixiv:
+			return res.pixiv(), nil
+		case indexes.AniDB:
+			return res.aniDB(), nil
+		case indexes.Pawoo:
+			return res.pawoo(), nil
+		case indexes.Gelbooru:
+			return res.gelbooru(), nil
+		case indexes.Danbooru:
+			return res.danbooru(), nil
+		case indexes.E621:
+			return res.e621(), nil
+		case indexes.PortalGraphics:
+			return res.portalGraphics(), nil
+		case indexes.Sankaku:
+			return res.sankaku(), nil
+		case indexes.FurAffinity:
+			return res.furAffinity(), nil
+		case indexes.SeigaIllustration:
+			return res.seigaIllustration(), nil
+		case indexes.HMags:
+			return res.hMags(), nil
+		case indexes.IMDb:
+			return res.iMDb(), nil
+		default:
+			// It means that this is not supported, so we have to just increase
+			// the index so that on next call of Next() we get the correct one.
+			r.currIndex++
+		}
 	}
+
+	return nil, &sauceError{"finished", ErrIteratorFinished}
 }
 
 type responseHeader struct {
