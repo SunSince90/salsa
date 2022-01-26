@@ -1,6 +1,6 @@
 package sauces
 
-import "github.com/SunSince90/salsa/indexes"
+import "github.com/asimpleidea/salsa/indexes"
 
 // SauceHeader contains the header for the source, with additional information
 // about the source, such as the similarity, thumbnail etc.

@@ -3,7 +3,7 @@ package sauces
 import (
 	"time"
 
-	"github.com/SunSince90/salsa/indexes"
+	"github.com/asimpleidea/salsa/indexes"
 )
 
 // Pawoo is a source for a picture found from Pawoo.

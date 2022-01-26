@@ -3,7 +3,7 @@ package salsa
 import (
 	"net/http"
 
-	"github.com/SunSince90/salsa/indexes"
+	"github.com/asimpleidea/salsa/indexes"
 )
 
 // RequestOptions contains options to include with the request.

@@ -1,6 +1,6 @@
 package sauces
 
-import "github.com/SunSince90/salsa/indexes"
+import "github.com/asimpleidea/salsa/indexes"
 
 // Danbooru is a source for a picture found from danbooru.donmai.us.
 type Danbooru struct {

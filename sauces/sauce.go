@@ -1,6 +1,6 @@
 package sauces
 
-import "github.com/SunSince90/salsa/indexes"
+import "github.com/asimpleidea/salsa/indexes"
 
 // Sauce defines a general source returned by Saucenao.
 type Sauce interface {

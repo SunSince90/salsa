@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 	"strconv"
 
-	"github.com/SunSince90/salsa/indexes"
+	"github.com/asimpleidea/salsa/indexes"
 	"github.com/gabriel-vasile/mimetype"
 )
 

@@ -3,7 +3,7 @@ package salsa
 import (
 	"time"
 
-	"github.com/SunSince90/salsa/sauces"
+	"github.com/asimpleidea/salsa/sauces"
 )
 
 type result struct {

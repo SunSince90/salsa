@@ -1,6 +1,6 @@
 package sauces
 
-import "github.com/SunSince90/salsa/indexes"
+import "github.com/asimpleidea/salsa/indexes"
 
 // PortalGraphics is a source for a picture found from portalgraphics.net.
 type PortalGraphics struct {

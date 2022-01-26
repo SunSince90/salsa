@@ -1,8 +1,8 @@
 package salsa
 
 import (
-	"github.com/SunSince90/salsa/indexes"
-	"github.com/SunSince90/salsa/sauces"
+	"github.com/asimpleidea/salsa/indexes"
+	"github.com/asimpleidea/salsa/sauces"
 )
 
 // AccountType defines the type of the account of the Saucenao user making
@@ -187,4 +187,8 @@ type responseHeader struct {
 	QueryImageDisplay string  `json:"query_image_display"`
 	QueryImage        string  `json:"query_image"`
 	Message           string  `json:"message"`
+}
+
+func (r *Response) CanPerformMoreCalls() bool {
+	return (r.ShortLimit > 0 && r.LongRemaining > 0)
 }
